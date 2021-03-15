@@ -1,7 +1,7 @@
-const Home_link = "/";
+const Home = "/";
 
-const Cart_link = "/cart";
+const Cart = "/cart";
 
-const Order_link = "/order";
+const Order = "/order";
 
-export { Home_link, Cart_link, Order_link};
+export default { Home, Cart, Order };

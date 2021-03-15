@@ -2,9 +2,22 @@
 
 .navbar-nav {
 	align-items: center;
+	font-family: "AkayaTelivigala";
   // background-color: $myColor !important;
 }
 
 .navTabs {
 	margin: 0 10px;
+	font-size: 24px;
+	color: ghostwhite;
+	text-transform: uppercase;
+}
+
+.navTabs:hover{
+	color: crimson;
+	text-decoration: none;
+}
+
+.active{
+	color: crimson;
 }

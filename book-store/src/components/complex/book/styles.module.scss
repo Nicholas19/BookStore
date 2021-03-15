@@ -1,0 +1,16 @@
+.book{
+	text-align: center;
+	border: 1px solid #eee;
+	padding: 5px 0;
+}
+
+.image{
+	max-height: 327px;
+	max-width: 275px;
+}
+
+.bookPrice{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}

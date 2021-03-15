@@ -1,44 +1,56 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
-import { Home_link, Cart_link, Order_link } from './../../../routes';
-import BooksList from './../../../screens/booksList';
-import Cart from './../../../screens/cart';
-import Order from './../../../screens/order';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import routes from 'routes';
+import './styles.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 
-import styles from './../navBar/styles.scss';
+const NavBar = ((props) => {
 
-const NavBar = (() => {
+	// let [searchValue, setsearchValue] = useState('');
+
+	// const Search = (text, ppartial) => {
+	// 	console.log(text);
+	// 	// return text.toLowerCase().indexOf(partial.toLowerCase()) > -1;
+	// }
+	
+
 	return (
-		<Router>
-			<Navbar bg="dark" variant="dark">
-				<Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav">
-					<Nav className="mr-auto">
-						<NavLink to={Home_link} exact className={styles.navTabs} activeClassName="">
-							Books
-							</NavLink>
-						<NavLink to={Cart_link} className={styles.navTabs} activeClassName="active">
-							Cart
+		<Navbar bg="dark" variant="dark">
+			<Navbar.Brand href="#home">Book Store</Navbar.Brand>
+			<Navbar.Toggle aria-controls="basic-navbar-nav" />
+			<Navbar.Collapse id="basic-navbar-nav">
+				<Nav className="mr-auto">
+					<NavLink to={routes.Home} exact className="navTabs" activeClassName="active">
+						Books&nbsp;
+						<FontAwesomeIcon icon={faBook} />
 					</NavLink>
-						<NavLink to={Order_link} className={styles.navTabs} activeClassName="active">
-							Order
+					<NavLink to={routes.Cart} className="navTabs" activeClassName="active">
+						Cart&nbsp;
+						<FontAwesomeIcon icon={faShoppingCart} />
 					</NavLink>
-					</Nav>
-					<Form inline>
-						<FormControl type="text" placeholder="Search" className="mr-sm-2" />
-						<Button variant="outline-success">Search</Button>
-					</Form>
-				</Navbar.Collapse>
-			</Navbar>
-			<Switch>
-				<Route path={Home_link} component={BooksList} exact></Route>
-				<Route path={Cart_link} component={Cart} exact></Route>
-				<Route path={Order_link} component={Order} exact></Route>
-			</Switch>
-		</Router>
+					<NavLink to={routes.Order} className="navTabs" activeClassName="active">
+						Order&nbsp;
+						<FontAwesomeIcon icon={faCreditCard} />
+					</NavLink>
+				</Nav>
+				<Form inline>
+					<FormControl type="text" /*onChange={(e) => Search(e.target.value)}*/ placeholder="Search" className="mr-sm-2" />
+					{/* <Button variant="outline-success">Search</Button> */}
+				</Form>
+			</Navbar.Collapse>
+		</Navbar>
 	);
 });
 
-export default NavBar;
+const mapStateToProps = (state) => {
+	return {
+		items: state.books.items,
+	};
+};
+
+export default connect(mapStateToProps, null)(NavBar);
