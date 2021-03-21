@@ -20,9 +20,13 @@ const Book = ((props) => {
 						<div>
 							<span className="book-price__price-value">{price}</span>
 							&nbsp;
-							<span lassName="book-price__price-currency">₴</span>
+							<span className="book-price__price-currency">₴</span>
 						</div>
-						<Button variant="success" className="book-buy">
+						<Button
+							variant="success"
+							className="book-buy"
+							onClick={() => props.onAdd(props.id)}
+						>
 							<FontAwesomeIcon icon={faShoppingCart} />
 						</Button>
 					</div>
@@ -33,9 +37,20 @@ const Book = ((props) => {
 });
 
 Book.propTypes = {
+	id: PropTypes.number.isRequired,
 	title: PropTypes.string,
 	cover: PropTypes.string,
-	price: PropTypes.number
+	price: PropTypes.number,
+	onAdd: PropTypes.func,
+	onRemove: PropTypes.func,
+}
+
+Book.defaultProps = {
+	title: '',
+	cover: '',
+	price: 0,
+	onAdd: function (e) { },
+	onRemove: function (e) { }
 }
 
 export default Book;

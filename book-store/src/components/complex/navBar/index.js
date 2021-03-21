@@ -8,20 +8,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import actions from 'store/actions';
 
 const NavBar = ((props) => {
 
-	// let [searchValue, setsearchValue] = useState('');
+	let [searchValue, setSearchValue] = useState('');
 
-	// const Search = (text, ppartial) => {
-	// 	console.log(text);
-	// 	// return text.toLowerCase().indexOf(partial.toLowerCase()) > -1;
-	// }
+//  console.log(props.items);
+	const dataSearch = (searchVal) => {
+		const value = searchVal.toLowerCase();
+		let data = [...props.items];
+
+		const dataFiltered = data.filter(book => {
+			return book.title.toLowerCase().includes(value);
+		});
+
+		// setNewData({
+		// 	data: dataFiltered
+		// });
+	
+	};
 	
 
 	return (
 		<Navbar bg="dark" variant="dark">
-			<Navbar.Brand href="#home">Book Store</Navbar.Brand>
+			<Navbar.Brand>
+				<NavLink to={routes.Home} className="brand">
+					Book Store
+				</NavLink></Navbar.Brand>
 			<Navbar.Toggle aria-controls="basic-navbar-nav" />
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="mr-auto">
@@ -39,8 +53,7 @@ const NavBar = ((props) => {
 					</NavLink>
 				</Nav>
 				<Form inline>
-					<FormControl type="text" /*onChange={(e) => Search(e.target.value)}*/ placeholder="Search" className="mr-sm-2" />
-					{/* <Button variant="outline-success">Search</Button> */}
+					<FormControl type="text" onChange={(e) => props.onSearch(e.target.value)} placeholder="Search" className="mr-sm-2" />
 				</Form>
 			</Navbar.Collapse>
 		</Navbar>
@@ -53,4 +66,10 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, null)(NavBar);
+let mapDispatchToProps = (dispatch) => {
+  return {
+		onSearch: (val) => dispatch(actions.books.filterData(val))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

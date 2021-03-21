@@ -13,11 +13,15 @@
 	text-transform: uppercase;
 }
 
-.navTabs:hover{
+.navTabs:hover, .brand:hover{
 	color: crimson;
 	text-decoration: none;
 }
 
 .active{
 	color: crimson;
+}
+
+.brand{
+	color: #fff;
 }
