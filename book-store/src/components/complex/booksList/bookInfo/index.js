@@ -1,19 +1,19 @@
 import React from 'react';
 
-const BookInfo = (props) => {
+const BookInfo = ({cover,title,author,price,backUrl}) => {
 
     return (
         <div>
             <div className="book-wrapper">
-                <img src={props.cover} alt={props.title}></img>
+                <img src={cover} alt={title}></img>
             </div>
-            <h1>{props.title}</h1>
-            <h2>{props.author}</h2>
+            <h1>{title}</h1>
+            <h2>{author}</h2>
             <hr/>
             <div>
-                <strong>Price: {props.price}</strong> 
+                <strong>Price: {price}</strong> 
             </div>
-            <props.linkComponent to={props.backUrl}>Back to list</props.linkComponent>
+            <props.linkComponent to={backUrl}>Back to list</props.linkComponent>
             <p>Text about product</p>
         </div>
     );

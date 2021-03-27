@@ -1,8 +1,15 @@
 import actions from '../actionTypes';
 
-export const filterData = (val) => {
+export const filterData = (payload) => {
 	return {
 		type: actions.Search,
-		val
+		payload
+	}
+}
+
+export const setPageNumber = (payload) => {
+	return {
+		type: actions.SetPageNumber,
+		payload
 	}
 }

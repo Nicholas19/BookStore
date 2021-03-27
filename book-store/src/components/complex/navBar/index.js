@@ -12,24 +12,6 @@ import actions from 'store/actions';
 
 const NavBar = ((props) => {
 
-	let [searchValue, setSearchValue] = useState('');
-
-//  console.log(props.items);
-	const dataSearch = (searchVal) => {
-		const value = searchVal.toLowerCase();
-		let data = [...props.items];
-
-		const dataFiltered = data.filter(book => {
-			return book.title.toLowerCase().includes(value);
-		});
-
-		// setNewData({
-		// 	data: dataFiltered
-		// });
-	
-	};
-	
-
 	return (
 		<Navbar bg="dark" variant="dark">
 			<Navbar.Brand>

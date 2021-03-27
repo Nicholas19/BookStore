@@ -3,26 +3,23 @@ import actions from 'store/actions/actionTypes';
 
 let initialState = {
   items: getBooksList(),
-  itemsFiltered: getBooksList()
+  itemsPerPage: 3,
+  activePage: 1
 };
-
-const search = (state, searchVal) => {
-  const value = searchVal.toLowerCase();
-
-  const itemsFiltered = state.items.filter(book => {
-    return book.title.toLowerCase().includes(value);
-  });
-
-	return {
-		...state,
-		itemsFiltered
-	}
-}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.Search:
-      return search(state, action.val);
+    case actions.Search: {
+      const value = action.payload.toLowerCase();
+      return {
+        ...state, items: getBooksList().filter(book => book.title.toLowerCase().includes(value))
+      }
+    }
+    case actions.SetPageNumber: {
+      return {
+        ...state, activePage: action.payload
+      }
+    }
     default:
       return state;
   }

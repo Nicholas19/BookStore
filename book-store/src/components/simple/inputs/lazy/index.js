@@ -1,54 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class extends React.Component{
-    static defaultProps = {
-        onChange: function(e){},
-        nativeProps: {}
-    }
-
-    static propTypes = {
-        value: PropTypes.any.isRequired,
-        onChange: PropTypes.func,
-        nativeProps: PropTypes.object
-    }
+const LazyInput = (props) => {
 
     nativeInput = React.createRef();
 
-    componentDidUpdate(prevProps, prevState){
-        let inp = this.nativeInput.current;
+    componentDidUpdate((prevProps, prevState) => {
+        let inp = nativeInput.current;
 
-        if(prevProps.value !== this.props.value && 
-            this.props.value != inp.value
-        ){           
-            inp.value = this.props.value;
+        if (prevProps.value !== props.value &&
+            props.value != inp.value
+        ) {
+            inp.value = props.value;
         }
-    }
+    });
 
-    setValue(value){
-        this.nativeInput.current.value = value;
+    setValue = (value) => {
+        nativeInput.current.value = value;
     }
 
     checkChange = (e) => {
-        if(this.props.value.toString() !== e.target.value){
-            this.props.onChange(e);
+        if (props.value.toString() !== e.target.value) {
+            props.onChange(e);
         }
     }
 
     checkEnterKey = (e) => {
-        if(e.keyCode === 13){
-            this.checkChange(e);
+        if (e.keyCode === 13) {
+            checkChange(e);
         }
     }
 
-    render(){
-        return (
-            <input {...this.props.nativeProps}
-                   defaultValue={this.props.value} 
-                   onBlur={this.checkChange}
-                   onKeyUp={this.checkEnterKey}
-                   ref={this.nativeInput}
-            />
-        );
-    }
+    return (
+        <input {...props.nativeProps}
+            defaultValue={props.value}
+            onBlur={checkChange}
+            onKeyUp={checkEnterKey}
+            ref={nativeInput}
+        />
+    );
+
 }
+
+LazyInput.defaultProps = {
+    onChange: function (e) { },
+    nativeProps: {}
+}
+
+LazyInput.propTypes = {
+    value: PropTypes.any.isRequired,
+    onChange: PropTypes.func,
+    nativeProps: PropTypes.object
+}
+
+export default LazyInput;

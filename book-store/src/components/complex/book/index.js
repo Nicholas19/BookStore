@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 import { Card, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon, faShoppingCart, faCartArrowDown } from 'helpers/faIcons';
 
-const Book = ((props) => {
-	const { title, cover, price } = props;
+const Book = (({title, cover, price, ...props}) => {
+
 	return (
 		<div className="col-4">
 			<div className={styles.book}>
@@ -22,13 +20,23 @@ const Book = ((props) => {
 							&nbsp;
 							<span className="book-price__price-currency">₴</span>
 						</div>
+						{props.disabled ? 
 						<Button
 							variant="success"
 							className="book-buy"
-							onClick={() => props.onAdd(props.id)}
+							onClick={props.onAdd}
 						>
-							<FontAwesomeIcon icon={faShoppingCart} />
+						<FontAwesomeIcon icon={faShoppingCart} />
+						</Button> 
+						:
+						<Button
+							variant="danger"
+							className="book-buy"
+							onClick={props.onRemove}
+						>
+							<FontAwesomeIcon icon={faCartArrowDown} />
 						</Button>
+						} 
 					</div>
 				</div>
 			</div>
@@ -37,7 +45,6 @@ const Book = ((props) => {
 });
 
 Book.propTypes = {
-	id: PropTypes.number.isRequired,
 	title: PropTypes.string,
 	cover: PropTypes.string,
 	price: PropTypes.number,
