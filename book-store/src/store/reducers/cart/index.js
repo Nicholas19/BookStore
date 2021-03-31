@@ -7,9 +7,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actions.Add:
-			return { ...state, items: [...state.items, action.id] };
+			return { ...state, items: [...state.items, action.payload] };
 		case actions.Remove:
-			return { ...state, items: state.items.filter(id => id !== action.id) };
+			return { ...state, items: state.items.filter(id => id !== action.payload) };
 		default:
 			return state;
 	}

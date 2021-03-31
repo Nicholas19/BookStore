@@ -9,16 +9,22 @@ let initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.Search: {
+    case actions.Search:{
       const value = action.payload.toLowerCase();
       return {
-        ...state, items: getBooksList().filter(book => book.title.toLowerCase().includes(value))
+        ...state, items: getBooksList().filter(book => book.title.toLowerCase().includes(value)), activePage: 1 
       }
     }
     case actions.SetPageNumber: {
       return {
         ...state, activePage: action.payload
       }
+    }
+    case actions.Change: {
+      const i = state.items.findIndex(item => item.id === action.payload.id);
+      const items = [...state.items];
+      items[i].current = action.payload.cnt;
+      return {...state, items}
     }
     default:
       return state;

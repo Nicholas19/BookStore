@@ -1,31 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import styles from './styles.module.scss';
 
-const LazyInput = (props) => {
+const LazyInput =  React.forwardRef((props, ref) => {
+    
+    useEffect(() => {
+        const inp = ref.current;
 
-    nativeInput = React.createRef();
-
-    componentDidUpdate((prevProps, prevState) => {
-        let inp = nativeInput.current;
-
-        if (prevProps.value !== props.value &&
-            props.value != inp.value
+        if (props.value !== inp.value
         ) {
             inp.value = props.value;
         }
-    });
+    }, [props.value]);
 
-    setValue = (value) => {
-        nativeInput.current.value = value;
+    const setValue = (value) => {
+        ref.current.value = value;
     }
-
-    checkChange = (e) => {
+    
+    const checkChange = (e) => {
         if (props.value.toString() !== e.target.value) {
             props.onChange(e);
         }
     }
 
-    checkEnterKey = (e) => {
+    const checkEnterKey = (e) => {
         if (e.keyCode === 13) {
             checkChange(e);
         }
@@ -33,14 +31,15 @@ const LazyInput = (props) => {
 
     return (
         <input {...props.nativeProps}
+            className={styles.input}
             defaultValue={props.value}
             onBlur={checkChange}
             onKeyUp={checkEnterKey}
-            ref={nativeInput}
+            ref={ref}
         />
     );
 
-}
+});
 
 LazyInput.defaultProps = {
     onChange: function (e) { },

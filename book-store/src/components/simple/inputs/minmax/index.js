@@ -1,31 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppLazyInput from '~c/inputs/lazy';
+import AppLazyInput from 'components/simple/inputs/lazy';
 
 const CustomInput = (props) => {
+    
+    const ref = React.createRef();
 
-    lazyInput = React.createRef();
-
-    increase = () => {
+    const increase = () => {
         set(props.cnt + 1);
     }
 
-    decrease = () => {
+    const decrease = () => {
         set(props.cnt - 1);
     }
 
-    set = (newCnt) => {
+    const set = (newCnt) => {
         let cnt = Math.min(Math.max(newCnt, props.min), props.max);
         props.onChange(cnt);
         return cnt;
     }
 
-    onChange = (e) => {
+    const onChange = (e) => {
         let cnt = parseInt(e.target.value);
         let realCnt = set(isNaN(cnt) ? props.min : cnt);
 
         if (realCnt.toString() !== e.target.value) {
-            lazyInput.current.setValue(realCnt);
+            ref.current.setValue(realCnt);
         }
     }
 
@@ -33,25 +33,23 @@ const CustomInput = (props) => {
         <div>
             <button
                 onClick={decrease}
-                disabled={props.disabled}
             >
                 -
                 </button>
             <AppLazyInput
-                nativeProps={{ type: 'text', className: styles.input, disabled: props.disabled }}
+                nativeProps={{ type: 'text', disabled: props.disabled }}
                 value={props.cnt}
                 onChange={onChange}
-                ref={lazyInput}
+                ref={ref}
             />
             <button
                 onClick={increase}
-                disabled={props.disabled}
             >
                 +
             </button>
         </div>
     );
-}
+};
 
 CustomInput.defaultProps = {
     onChange: function (cnt) { }

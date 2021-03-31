@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 import { Card, Button } from 'react-bootstrap';
 import { FontAwesomeIcon, faShoppingCart, faCartArrowDown } from 'helpers/faIcons';
+import { Link } from "react-router-dom";
+import routes from 'routes';
 
-const Book = (({title, cover, price, ...props}) => {
+const Book = (({ id, title, cover, price, disabled, onAdd, onRemove }) => {
 
 	return (
-		<div className="col-4">
+		<div className="col-md-4">
 			<div className={styles.book}>
 				<Card.Img variant="top" src={cover} className={styles.image} />
 				<div className="book-info">
@@ -20,23 +22,26 @@ const Book = (({title, cover, price, ...props}) => {
 							&nbsp;
 							<span className="book-price__price-currency">₴</span>
 						</div>
-						{props.disabled ? 
-						<Button
-							variant="success"
-							className="book-buy"
-							onClick={props.onAdd}
-						>
-						<FontAwesomeIcon icon={faShoppingCart} />
-						</Button> 
-						:
-						<Button
-							variant="danger"
-							className="book-buy"
-							onClick={props.onRemove}
-						>
-							<FontAwesomeIcon icon={faCartArrowDown} />
-						</Button>
-						} 
+						<Link to={`${routes.BookInfo}/${id}`}>
+							Подробнее...
+            </Link>
+						{disabled ?
+							<Button
+								variant="success"
+								className="book-buy"
+								onClick={onAdd}
+							>
+								<FontAwesomeIcon icon={faShoppingCart} />
+							</Button>
+							:
+							<Button
+								variant="danger"
+								className="book-buy"
+								onClick={onRemove}
+							>
+								<FontAwesomeIcon icon={faCartArrowDown} />
+							</Button>
+						}
 					</div>
 				</div>
 			</div>

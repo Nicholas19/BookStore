@@ -1,30 +1,25 @@
 import actions from 'store/actions/actionTypes';
 
-export const add = (id) => {
+export const add = (payload) => {
 	return {
 		type: actions.Add,
-		id
+		payload
 	}
 }
 
-export const remove = (id) => {
+export const remove = (payload) => {
 	return {
 		type: actions.Remove,
-		id
+		payload
 	}
 }
 
 export const changeCnt = (id, cnt) => {
 	return {
 		type: actions.Change,
-		id,
-		cnt
-	}
-}
-
-export const inCart = (id) => {
-	return {
-		type: actions.InCart,
-		id
+		payload:{
+			id,
+			cnt
+		}
 	}
 }

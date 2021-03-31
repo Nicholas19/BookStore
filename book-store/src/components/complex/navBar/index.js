@@ -1,19 +1,16 @@
-import React, {useState} from 'react';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import routes from 'routes';
 import './styles.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook } from '@fortawesome/free-solid-svg-icons';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon, faShoppingCart, faBook, faCreditCard} from 'helpers/faIcons';
 import actions from 'store/actions';
 
 const NavBar = ((props) => {
 
 	return (
-		<Navbar bg="dark" variant="dark">
+		<Navbar bg="dark" variant="dark" expand="md">
 			<Navbar.Brand>
 				<NavLink to={routes.Home} className="brand">
 					Book Store

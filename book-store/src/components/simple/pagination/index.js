@@ -1,51 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import actions from 'store/actions';
 import { Pagination } from 'react-bootstrap';
 import styles from './styles.module.scss';
 
 const CustomPagination = (({ totalRecords, pageLimit, activePage, onPageNumberChange }) => {
     const totalPages = Math.round(totalRecords / pageLimit);
-    let items = [];
+    const items = [];
 
     for (let i = 1; i <= totalPages; i++) {
-        items.push(
-            <Pagination>
-                <Pagination.Item 
-                    key={i + 'some'} 
-                    active={i === activePage}
-                    onClick={() => onPageNumberChange(i)}
+        if (totalPages < 7 || (i === activePage || i === activePage + 1 || i === activePage - 1)) {
+            items.push(
+                <Pagination key={i}>
+                    <Pagination.Item
+                        active={i === activePage}
+                        onClick={() => onPageNumberChange(i)}
                     >
-                    {i}
-                </Pagination.Item>
-            </Pagination>
-        );
+                        {i}
+                    </Pagination.Item>
+                </Pagination >
+            );
+        } else if ((i === activePage + 2 || i === activePage - 2) && i !== 1 && i !== totalPages) {
+            items.push(
+                <Pagination key={i}>
+                    <Pagination.Ellipsis disabled />
+                </Pagination >
+            );
+        }
     }
 
     return (
         <div className={styles.pagination}>
-            {items}
+            <Pagination>
+                <Pagination.First onClick={() => onPageNumberChange(1)} />
+                <Pagination.Prev onClick={() => onPageNumberChange(activePage - 1)} />
+                {items}
+                <Pagination.Next onClick={() => onPageNumberChange(activePage + 1)} />
+                <Pagination.Last onClick={() => onPageNumberChange(totalPages)} />
+            </Pagination>
         </div>
 
     );
 });
 
 CustomPagination.propTypes = {
-    totalRecords: PropTypes.number.isRequired
+    totalRecords: PropTypes.number.isRequired,
+    pageLimit: PropTypes.number,
+    activePage: PropTypes.number,
+    onPageNumberChange: PropTypes.func
 }
 
-const mapStateToProps = (state) => {
-	return {
-        pageLimit: state.books.itemsPerPage,
-        activePage: state.books.activePage
-	};
-};
+CustomPagination.defaultProps = {
+    totalRecords: 10,
+    pageLimit: 3,
+    activePage: 1,
+    onPageNumberChange: function (e) { }
+}
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onPageNumberChange: (pageNumber) => dispatch(actions.books.setPageNumber(pageNumber)),
-	}
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CustomPagination);
+export default CustomPagination;
