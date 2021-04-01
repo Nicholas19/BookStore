@@ -17,7 +17,7 @@ function App() {
           <Route path={routes.Home} component={BooksList} exact></Route>
           <Route path={routes.Cart} component={Cart} exact></Route>
           <Route path={routes.Order} component={Order} exact></Route>
-          <Route path={`${routes.BookInfo}/:id`} component={BookInfo} exact></Route>
+          <Route path={`${routes.BookInfo}/:bookId`} component={BookInfo} exact></Route>
         </Switch>
       </div>
     </Router>

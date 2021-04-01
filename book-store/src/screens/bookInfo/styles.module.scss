@@ -1,0 +1,60 @@
+$margin: 20px 0;
+
+.cover {
+	max-width: 300px;
+}
+
+.bookData{
+	display: flex;
+}
+
+.bookPurchase{
+	margin: 0 50px;
+	.enough{
+		background: #f4faf6;
+		color: #00a046;
+	}
+	.runningOut{
+		background: #fff7f2;
+		color: #ff5c00;
+	}
+	.enough, .runningOut{
+		padding: 10px;
+		border-radius: 5px;
+	}
+}
+
+.bookPrice{
+	margin: $margin;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	border: 1px solid #eeeeee;
+	border-radius: 5px;
+	.price{
+		font-size: 24px;
+		font-weight: 600;
+	}
+	button{
+		margin-left: 20px;
+	}
+}
+
+.payment, .warranty {
+	margin: $margin;
+	border: 1px solid #eeeeee;
+	border-radius: 5px;
+	.paymentHeader, .paymentContent, .warrantyHeader, .warrantyContent{
+		padding: 10px 20px;
+	}
+	.paymentHeader, .warrantyHeader{
+		border-bottom: 1px solid #eeeeee;
+	}
+}
+
+.description{
+	margin: 30px 0;
+	.descriptionHeaderBook{
+		color: #d2d2d2;
+	}
+}

@@ -39,7 +39,6 @@ const BooksList = (({ items, itemsPerPage, activePage, onAdd, onRemove, cartItem
 const mapStateToProps = (state) => {
 	return {
 		items: state.books.items,
-		itemsFiltered: state.books.itemsFiltered,
 		totalRecords: state.books.items.length,
 		itemsPerPage: state.books.itemsPerPage,
 		activePage: state.books.activePage,
