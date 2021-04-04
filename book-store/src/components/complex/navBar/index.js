@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import routes from 'routes';
 import './styles.scss';
-import { FontAwesomeIcon, faShoppingCart, faBook, faCreditCard} from 'helpers/faIcons';
+import { FontAwesomeIcon, faShoppingCart, faBook, faCreditCard, faUserAlt, faUserCheck } from 'helpers/faIcons';
 import actions from 'store/actions';
 
 const NavBar = ((props) => {
@@ -34,6 +34,9 @@ const NavBar = ((props) => {
 				<Form inline>
 					<FormControl type="text" onChange={(e) => props.onSearch(e.target.value)} placeholder="Search" className="mr-sm-2" />
 				</Form>
+				<NavLink to={routes.Login} className="navTabs" activeClassName="active">
+					<FontAwesomeIcon icon={faUserAlt} />
+				</NavLink>
 			</Navbar.Collapse>
 		</Navbar>
 	);
@@ -42,11 +45,12 @@ const NavBar = ((props) => {
 const mapStateToProps = (state) => {
 	return {
 		items: state.books.items,
+		
 	};
 };
 
 let mapDispatchToProps = (dispatch) => {
-  return {
+	return {
 		onSearch: (val) => dispatch(actions.books.filterData(val))
 	};
 };

@@ -5,6 +5,7 @@ import BooksList from 'screens/booksList';
 import Cart from 'screens/cart';
 import Order from 'screens/order';
 import BookInfo from 'screens/bookInfo';
+import Login from 'screens/login';
 import "./styles/index.scss";
 import NavBar from 'components/complex/navBar';
 
@@ -18,6 +19,7 @@ function App() {
           <Route path={routes.Cart} component={Cart} exact></Route>
           <Route path={routes.Order} component={Order} exact></Route>
           <Route path={`${routes.BookInfo}/:bookId`} component={BookInfo} exact></Route>
+          <Route path={routes.Login} component={Login} exact></Route>
         </Switch>
       </div>
     </Router>
