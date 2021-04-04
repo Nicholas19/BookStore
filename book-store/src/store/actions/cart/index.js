@@ -14,12 +14,9 @@ export const remove = (payload) => {
 	}
 }
 
-export const changeCnt = (id, cnt) => {
+export const changeCnt = (payload) => {
 	return {
 		type: actions.Change,
-		payload:{
-			id,
-			cnt
-		}
+		payload
 	}
 }

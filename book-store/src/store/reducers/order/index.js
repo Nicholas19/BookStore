@@ -27,10 +27,14 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actions.FormChange:
-			const formData = {...state.formData};
+			const formData = {...state.formData};	
 			
 			for(const key in action.payload){
-				formData[key].value = action.payload[key];
+				Object.values(formData).map((item) => {
+					if(item.label === key){
+						item.value = action.payload[key];
+					}
+				})
 			}
 
 			return { ...state.formData, formData };

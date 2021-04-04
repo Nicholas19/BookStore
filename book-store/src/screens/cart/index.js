@@ -71,7 +71,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onChange: (id, cnt) => dispatch(actions.cart.changeCnt(id, cnt)),
+		onChange: (id, cnt) => dispatch(actions.cart.changeCnt({id, cnt})),
 		onRemove: (id) => dispatch(actions.cart.remove(id))
 	}
 };

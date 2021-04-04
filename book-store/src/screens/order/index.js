@@ -27,43 +27,20 @@ const Order = ({ formData, change, books, cartItems }) => {
 	}
 
 	const formValid = () => {
-		for (const key in errors) {
+		if (Object.keys(errors).length) {
 			return false;
 		}
 
 		return true;
 	}
 
-	const formFields = [];
-
-	for (let name in formData) {
-		const field = formData[name];
-
-		formFields.push(
-			<Form.Group key={name} controlId={'order-form-' + name}>
-				<Form.Label>{field.label}</Form.Label>
-				<Form.Control
-					name={name}
-					ref={register({
-						required: true,
-						pattern: field.pattern
-					})}
-					placeholder={field.label}
-					type="text"
-					style={{ borderColor: errors[name] && "red" }}
-				/>
-				{!errors[name] ? '' :
-					<Form.Text className="text-muted">
-						{field.errorText}
-					</Form.Text>
-				}
-			</Form.Group>
-		);
-	}
-
 	const onSubmit = (data) => {
-		change(data);
-		show();
+		if (cartItems.length > 0) {
+			change(data);
+			show();
+		} else {
+			alert("Ваша корзина пуста! Добавьте товар в корзину!");
+		}
 	}
 
 	return (
@@ -74,7 +51,30 @@ const Order = ({ formData, change, books, cartItems }) => {
 				className={styles.form}
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				{formFields}
+				{			
+				Object.values(formData).map(item => {
+					return (
+					<Form.Group key={item.label} controlId={'order-form-' + item.label}>
+						<Form.Label>{item.label}</Form.Label>
+						<Form.Control
+							name={item.label}
+							ref={register({
+								required: true,
+								pattern: item.pattern
+							})}
+							placeholder={item.label}
+							type="text"
+							style={{ borderColor: errors[item.label] && "red" }}
+						/>
+						{!errors[item.label] ? '' :
+							<Form.Text className="text-muted">
+								{item.errorText}
+							</Form.Text>
+						}
+					</Form.Group>
+					)
+				})
+				}
 				<Link className="btn btn-warning" to={routes.Cart}>
 					Back to cart
       	</Link>

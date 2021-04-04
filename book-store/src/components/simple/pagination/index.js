@@ -32,9 +32,9 @@ const CustomPagination = (({ totalRecords, pageLimit, activePage, onPageNumberCh
         <div className={styles.pagination}>
             <Pagination>
                 <Pagination.First onClick={() => onPageNumberChange(1)} />
-                <Pagination.Prev onClick={() => onPageNumberChange(activePage - 1)} />
+                <Pagination.Prev disabled={activePage === 1} onClick={() => onPageNumberChange(activePage - 1)} />
                 {items}
-                <Pagination.Next onClick={() => onPageNumberChange(activePage + 1)} />
+                <Pagination.Next disabled={activePage === totalPages} onClick={() => onPageNumberChange(activePage + 1)} />
                 <Pagination.Last onClick={() => onPageNumberChange(totalPages)} />
             </Pagination>
         </div>
