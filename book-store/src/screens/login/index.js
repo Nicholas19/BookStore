@@ -4,20 +4,19 @@ import actions from 'store/actions';
 import styles from './styles.module.scss';
 import LoginForm from 'components/complex/login';
 import { Button } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
 import routes from 'routes';
 
-const Login = ({ formData, users, onLogin }) => {
-    const user = localStorage.getItem('userName');
+const Login = ({ formData, users, user, onLogin, getUserName, history }) => {
 
     return (
         <>
-            {user || formData[0].value ? 
+            {user ? 
             <Button
                 variant="danger"
                 onClick={() => {
                     localStorage.removeItem("userName");
-                    // console.log(this.history);
+                    getUserName(null);
+                    history.push(routes.Home);
                 }
             }
             >
@@ -28,6 +27,7 @@ const Login = ({ formData, users, onLogin }) => {
                 formData={formData}
                 users={users}
                 onLogin={onLogin}
+                getUserName={getUserName}
             />    
         }
         </>
@@ -37,13 +37,15 @@ const Login = ({ formData, users, onLogin }) => {
 const mapStateToProps = (state) => {
     return {
         formData: state.login.formData,
-        users: state.login.users
+        users: state.login.users,
+        user: state.login.User,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (data) => dispatch(actions.login.login(data)),
+        getUserName: (userName) => dispatch(actions.login.getUser(userName))
     }
 };
 

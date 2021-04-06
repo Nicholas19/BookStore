@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 import { Card, Button } from 'react-bootstrap';
 import { FontAwesomeIcon, faShoppingCart, faCartArrowDown } from 'helpers/faIcons';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import routes from 'routes';
 
-const Book = (({ id, title, cover, price, disabled, onAdd, onRemove }) => {
+const Book = (({ id, title, cover, price, user, disabled, onAdd, onRemove }) => {
+	const history = useHistory();
 
 	return (
 		<div className="col-md-4">
@@ -29,7 +30,7 @@ const Book = (({ id, title, cover, price, disabled, onAdd, onRemove }) => {
 							<Button
 								variant="success"
 								className="book-buy"
-								onClick={onAdd}
+								onClick={user ? () => onAdd() : () => history.push(routes.Login)}
 							>
 								<FontAwesomeIcon icon={faShoppingCart} />
 							</Button>
@@ -53,6 +54,7 @@ Book.propTypes = {
 	title: PropTypes.string,
 	cover: PropTypes.string,
 	price: PropTypes.number,
+	user: PropTypes.string,
 	onAdd: PropTypes.func,
 	onRemove: PropTypes.func,
 }

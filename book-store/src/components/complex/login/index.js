@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import styles from './styles.module.scss';
 import { Form, Button } from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
+import routes from 'routes';
 
-const Login = ({ formData, users, onLogin }) => {
+const Login = ({ formData, users, onLogin, getUserName }) => {
+    const history = useHistory();
 
     const { register, handleSubmit, errors } = useForm({
         mode: "onChange"
@@ -18,6 +21,8 @@ const Login = ({ formData, users, onLogin }) => {
         if (i > -1) {
             onLogin(data);
             localStorage.setItem('userName', Remember ? User : '');
+            getUserName(User);
+            history.push(routes.Home);
         } else {
             alert('Неверное имя пользователя или пароль');
         }
@@ -90,10 +95,12 @@ Login.propTypes = {
 	formData: PropTypes.array.isRequired,
 	users: PropTypes.array.isRequired,
 	onLogin: PropTypes.func,
+    getUserName: PropTypes.func
 }
 
 Login.defaultProps = {
-	onLogin: function (e) { }
+	onLogin: function (e) { },
+	getUserName: function (e) { }
 }
 
 export default Login;

@@ -8,11 +8,16 @@ import BookInfo from 'screens/bookInfo';
 import Login from 'screens/login';
 import "./styles/index.scss";
 import NavBar from 'components/complex/navBar';
+import { connect } from 'react-redux';
+import actions from 'store/actions';
 
-function App() {
+const App = ({user, onSearch}) => {
   return (
     <Router>
-      <NavBar />
+      <NavBar
+        user={user}
+        onSearch={onSearch}
+      />
       <div className="container">
         <Switch>
           <Route path={routes.Home} component={BooksList} exact></Route>
@@ -26,4 +31,16 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+	return {
+		user: state.login.User,
+	};
+};
+
+let mapDispatchToProps = (dispatch) => {
+	return {
+		onSearch: (val) => dispatch(actions.books.filterData(val))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

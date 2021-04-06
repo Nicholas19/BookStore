@@ -6,3 +6,10 @@ export const login = (payload) => {
 		payload
 	}
 }
+
+export const getUser = (payload) => {
+	return {
+		type: actions.GetUser,
+		payload
+	}
+}

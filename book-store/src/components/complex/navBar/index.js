@@ -1,13 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 import routes from 'routes';
 import './styles.scss';
 import { FontAwesomeIcon, faShoppingCart, faBook, faCreditCard, faUserAlt, faUserCheck } from 'helpers/faIcons';
-import actions from 'store/actions';
 
-const NavBar = ((props) => {
+
+const NavBar = (({ user, onSearch }) => {
 
 	return (
 		<Navbar bg="dark" variant="dark" expand="md">
@@ -32,27 +32,31 @@ const NavBar = ((props) => {
 					</NavLink>
 				</Nav>
 				<Form inline>
-					<FormControl type="text" onChange={(e) => props.onSearch(e.target.value)} placeholder="Search" className="mr-sm-2" />
+					<FormControl type="text" onChange={(e) => onSearch(e.target.value)} placeholder="Search" className="mr-sm-2" />
 				</Form>
-				<NavLink to={routes.Login} className="navTabs" activeClassName="active">
-					<FontAwesomeIcon icon={faUserAlt} />
-				</NavLink>
+				{
+					user ?
+						<NavLink to={routes.Login} className="navTabs" activeClassName="active">
+							<FontAwesomeIcon icon={faUserCheck} />
+						</NavLink>
+						:
+						<NavLink to={routes.Login} className="navTabs" activeClassName="active">
+							<FontAwesomeIcon icon={faUserAlt} />
+						</NavLink>
+				}
+
 			</Navbar.Collapse>
 		</Navbar>
 	);
 });
 
-const mapStateToProps = (state) => {
-	return {
-		items: state.books.items,
-		
-	};
-};
+NavBar.propTypes = {
+	user: PropTypes.string.isRequired,
+	onSearch: PropTypes.func,
+}
 
-let mapDispatchToProps = (dispatch) => {
-	return {
-		onSearch: (val) => dispatch(actions.books.filterData(val))
-	};
-};
+NavBar.defaultProps = {
+	onSearch: function (e) { }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default (NavBar);
